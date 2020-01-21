@@ -78,6 +78,16 @@ int saveData(const char* filename){
 	}
 	//File is open at this point and ready to write
 
+	process_stats currentPStat;
+	string writeLine;
+	for (int x = 0; x < dataVec.size(); x++) {
+		currentPStat = dataVec.at(x);
+			writeLine = "";
+			writeLine += to_string(dataVec.at(x).process_number) + ",";
+			writeLine += to_string(dataVec.at(x).start_time) + ",";
+			writeLine += to_string(dataVec.at(x).cpu_time);
+			myfile << writeLine + "\n";
+		}
 	myfile.close();
 return SUCCESS;
 }
@@ -137,7 +147,8 @@ void sortData(SORT_ORDER mySortOrder){
 //then deletes it from the vector
 process_stats getNext(){
 	process_stats current = dataVec.at(0);
-	dataVec.pop_back();
+	//dataVec.pop_back();
+	dataVec.erase (dataVec.begin());
 
 	return current;
 }
